@@ -1,0 +1,7 @@
+.DropDown {
+  padding-right: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  border-color: grey;
+}
