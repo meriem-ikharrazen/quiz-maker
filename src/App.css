@@ -19,11 +19,8 @@
   border-radius: 5cap;
   border-color: #001529;
   padding: 24px;
-  min-height: 380px;
   border: solid;
-}
+  height: "100%";
 
-.site-layout {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 1rem;
+  margin-top: 10px;
 }

@@ -3,7 +3,7 @@ import { Category } from "../interfaces/Category";
 
 const url = "https://opentdb.com/api_category.php";
 
-export const useFetch = (): Category[] => {
+export const useFetchCategories = (): Category[] => {
   const [data, setData] = useState<Category[]>([]);
   //const [loading, setLoading] = useState(true);
 

@@ -1,5 +1,20 @@
 .DropDownContainer {
   display: flex;
-  display: row;
   justify-content: center;
+  margin-bottom: 5%;
+  align-items: center;
+}
+.HomeContainer {
+  display: flex;
+  flex-direction: column;
+}
+.HomeContainerTitle {
+  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+.QuizContainer {
+  padding-left: 7%;
+  padding-right: 7%;
 }

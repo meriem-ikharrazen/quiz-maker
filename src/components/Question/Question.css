@@ -1,0 +1,15 @@
+.Question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+.Qst {
+  margin-bottom: 1%;
+}
+
+.Choices {
+  display: flex;
+  flex-direction: row;
+  gap: 1%;
+}
