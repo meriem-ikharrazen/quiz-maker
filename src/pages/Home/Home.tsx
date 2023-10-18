@@ -18,6 +18,8 @@ export const Home = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("");
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
+  console.log("Home is renderd");
+
   return (
     <>
       <div className="HomeContainer">

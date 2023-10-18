@@ -4,23 +4,25 @@ import { Button } from "../Button/Button";
 import "./Question.css";
 
 type QuestionProps = {
+  id: number;
   question: string;
   correctAnswer: string;
   incorrectAnswers: string[];
-  setCountClickedButtons: () => void;
+  onSelect: (index: number, choice: string) => void;
 };
 export const Question: React.FC<QuestionProps> = ({
+  id,
   question,
   correctAnswer,
   incorrectAnswers,
-  setCountClickedButtons,
+  onSelect,
 }) => {
   const randomChoices: string[] = useMemo(() => {
     return shuffleArray(correctAnswer, incorrectAnswers);
   }, [correctAnswer, incorrectAnswers]);
 
   return (
-    <div className="Question">
+    <div className="Question" key={"qst-" + id}>
       <div className="Qst">{question}</div>
       <div className="Choices">
         {randomChoices ? (
@@ -31,7 +33,8 @@ export const Question: React.FC<QuestionProps> = ({
               color="#019C00"
               backgroundColor="white"
               component="question"
-              setCountClickedButtons={setCountClickedButtons}
+              onSelect={onSelect}
+              questionNumber={id}
             />
           ))
         ) : (

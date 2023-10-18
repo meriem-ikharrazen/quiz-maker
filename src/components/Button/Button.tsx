@@ -7,9 +7,10 @@ type ButtonProps = {
   backgroundColor?: string;
   action?: () => void;
   component?: string;
-  setCountClickedButtons?: () => void;
   ccsStyle?: CSSProperties;
   disabled?: boolean;
+  onSelect?: (index: number, choice: string) => void;
+  questionNumber?: number;
 };
 export const Button: React.FC<ButtonProps> = ({
   id,
@@ -18,23 +19,25 @@ export const Button: React.FC<ButtonProps> = ({
   color = "green",
   action,
   component = "home",
-  setCountClickedButtons,
   ccsStyle,
   disabled = false,
+  onSelect,
+  questionNumber,
 }) => {
   const [textColor, setTextColor] = useState<string>(color);
   const [backColor, setBackColor] = useState<string>(backgroundColor);
-  //const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleClick = (action: any) => {
     if (component === "question") {
+      console.log("here");
       let temp = textColor;
       setTextColor(backColor);
       setBackColor(temp);
     }
     action !== undefined && action();
-    //setIsClicked((prev: boolean) => !prev);
-    setCountClickedButtons !== undefined && setCountClickedButtons();
+    onSelect !== undefined &&
+      questionNumber !== undefined &&
+      onSelect(questionNumber, name);
   };
   return (
     <button

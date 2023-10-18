@@ -20,29 +20,43 @@ export const Quiz: React.FC<QuizProps> = ({
     difficulty,
     isVisible
   );
-  const [countClickedButtons, setCountClickedButtons] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
 
-  const incrementCount = () => {
-    setCountClickedButtons((prev: number) => prev + 1);
-  };
+  console.log(questions);
+  //const [setSelectedItems, setSelectedItems] = useState<string[]>([]);
+  const [score, setScore] = useState<number>(0);
 
   const calculateScore = () => {
     //setScore
   };
 
+  const [selectedChoices, setSelectedChoices] = useState<string[]>(
+    new Array(5).fill("")
+  );
+
+  const onSelect = (index: number, choice: string) => {
+    const newSelectedChoices = [...selectedChoices];
+    newSelectedChoices[index] === choice
+      ? (newSelectedChoices[index] = "")
+      : (newSelectedChoices[index] = choice);
+    setSelectedChoices(newSelectedChoices);
+    console.log(selectedChoices);
+  };
+
+  console.log("Quiz is renderd");
+
   return (
     <>
-      {questions.map((question: QuestionType, index: number) => (
+      {questions.map((question: QuestionType) => (
         <Question
           question={question.question}
           correctAnswer={question.correctAnswer}
           incorrectAnswers={question.incorrectAnswers}
-          key={index}
-          setCountClickedButtons={incrementCount}
+          id={question.id}
+          key={question.id}
+          onSelect={onSelect}
         />
       ))}
-      {countClickedButtons === 5 && (
+      {!selectedChoices.includes("") && (
         <Button
           id="Submit"
           name="Submit"

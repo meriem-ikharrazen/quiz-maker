@@ -22,10 +22,11 @@ export function useFetchQuestions(
       fetch(url)
         .then((res) => res.json())
         .then((d) => {
-          d.results.forEach((element: ResponseType) => {
+          d.results.forEach((element: ResponseType, index: number) => {
             setData((prev: Question[]) => [
               ...prev,
               {
+                id: index,
                 question: element.question,
                 correctAnswer: element.correct_answer,
                 incorrectAnswers: element.incorrect_answers,
@@ -33,7 +34,6 @@ export function useFetchQuestions(
             ]);
           });
         });
-      console.log("i fire once");
     }
   }, [url, isVisible]);
 
