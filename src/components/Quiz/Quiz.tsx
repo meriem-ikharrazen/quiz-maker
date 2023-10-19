@@ -1,9 +1,9 @@
-import { Question } from "../Question/Question";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFetchQuestions } from "../../hooks/useFetchQuestions";
 import { Question as QuestionType } from "../../interfaces/Question";
-import { useEffect, useState } from "react";
+import { Question } from "../Question/Question";
 import "./Quiz.css";
-import { Link, useNavigate } from "react-router-dom";
 
 type QuizProps = {
   category: string;

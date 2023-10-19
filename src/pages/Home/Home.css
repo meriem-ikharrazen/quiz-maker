@@ -18,3 +18,13 @@
   padding-left: 7%;
   padding-right: 7%;
 }
+.createQuiz {
+  background-color: grey;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  border-color: black;
+  color: white;
+  margin-right: 5px;
+}

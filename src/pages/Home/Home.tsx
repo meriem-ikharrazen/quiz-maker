@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Button } from "../../components/Button/Button";
 import { DropDown } from "../../components/DropDown/DropDown";
+import { Quiz } from "../../components/Quiz/Quiz";
 import { useFetchCategories } from "../../hooks/useFetchCategories";
 import { Category } from "../../interfaces/Category";
-import { Quiz } from "../../components/Quiz/Quiz";
 import "./Home.css";
 
 export const Home = () => {
@@ -37,13 +36,9 @@ export const Home = () => {
             list={difficulties}
             setSelectedItem={setSelectedDifficulty}
           />
-          <Button
-            id="createBtn"
-            name="Create"
-            backgroundColor="#00abe4"
-            color="black"
-            action={() => setIsVisible(true)}
-          />
+          <button onClick={() => setIsVisible(true)} className="createQuiz">
+            Create
+          </button>
         </div>
         <div className="QuizContainer">
           <Quiz
