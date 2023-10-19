@@ -1,9 +1,9 @@
 import { Question } from "../Question/Question";
 import { useFetchQuestions } from "../../hooks/useFetchQuestions";
 import { Question as QuestionType } from "../../interfaces/Question";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Quiz.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type QuizProps = {
   category: string;
@@ -21,11 +21,13 @@ export const Quiz: React.FC<QuizProps> = ({
     difficulty,
     isVisible
   );
+  console.log(questions);
   const [selectedChoices, setSelectedChoices] = useState<string[]>(
     new Array(5).fill("")
   );
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
-  const [score, setScore] = useState(0);
+  let score = 0;
+  const navigate = useNavigate();
 
   const onAnswerSelected = (answer: string, index: number) => {
     setSelectedAnswer(answer);
@@ -43,13 +45,14 @@ export const Quiz: React.FC<QuizProps> = ({
   const onSubmit = () => {
     questions.forEach((qst: QuestionType, index: number) => {
       if (qst.correctAnswer === selectedChoices[index]) {
-        setScore((prev: number) => prev + 1);
+        score++;
       }
     });
     setSelectedAnswer("");
     console.log("selectedItems ", selectedChoices);
     console.log("questions", questions);
     console.log("score", score);
+    navigate("/result", { state: { selectedChoices, questions, score } });
   };
 
   return (
@@ -66,11 +69,9 @@ export const Quiz: React.FC<QuizProps> = ({
         ))}
         {!selectedChoices.includes("") && (
           <>
-            <Link to="/result" state={{ selectedChoices, questions, score }}>
-              <button onClick={onSubmit} className="submit">
-                Soumettre
-              </button>
-            </Link>
+            <button onClick={onSubmit} className="submit">
+              Soumettre
+            </button>
           </>
         )}
       </div>

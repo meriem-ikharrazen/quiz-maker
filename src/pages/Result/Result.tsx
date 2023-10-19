@@ -5,6 +5,22 @@ import { Question } from "../../components/Question/Question";
 
 export const Result = () => {
   const { state } = useLocation();
+  let color = "";
+
+  switch (state.score) {
+    case 0 || 1:
+      color = "red";
+      break;
+    case 2 || 3:
+      color = "yellow";
+      break;
+    case 4 || 5:
+      color = "green";
+      break;
+    default:
+      color = "white";
+      break;
+  }
 
   return (
     <div className="result">
@@ -19,7 +35,9 @@ export const Result = () => {
           />
         ))}
       </div>
-      <div className="score">{state.score}</div>
+      <div className="score" style={{ backgroundColor: color }}>
+        You scored {state.score} out of {state.questions.length}
+      </div>
       <Link to="/">
         <button onClick={() => {}} className="submit">
           Create a new Quiz
