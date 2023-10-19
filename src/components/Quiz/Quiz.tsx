@@ -2,7 +2,8 @@ import { Question } from "../Question/Question";
 import { useFetchQuestions } from "../../hooks/useFetchQuestions";
 import { Question as QuestionType } from "../../interfaces/Question";
 import { useState } from "react";
-import { Button } from "../Button/Button";
+import "./Quiz.css";
+import { Link } from "react-router-dom";
 
 type QuizProps = {
   category: string;
@@ -20,52 +21,59 @@ export const Quiz: React.FC<QuizProps> = ({
     difficulty,
     isVisible
   );
-
-  console.log(questions);
-  //const [setSelectedItems, setSelectedItems] = useState<string[]>([]);
-  const [score, setScore] = useState<number>(0);
-
-  const calculateScore = () => {
-    //setScore
-  };
-
   const [selectedChoices, setSelectedChoices] = useState<string[]>(
     new Array(5).fill("")
   );
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
+  const [score, setScore] = useState(0);
 
-  const onSelect = (index: number, choice: string) => {
-    const newSelectedChoices = [...selectedChoices];
-    newSelectedChoices[index] === choice
-      ? (newSelectedChoices[index] = "")
-      : (newSelectedChoices[index] = choice);
-    setSelectedChoices(newSelectedChoices);
+  const onAnswerSelected = (answer: string, index: number) => {
+    setSelectedAnswer(answer);
+    console.log(selectedAnswer);
+    setSelectedChoices((prevSelectedChoices: string[]) => {
+      const newSelectedChoices = [...selectedChoices];
+      newSelectedChoices[index] === answer
+        ? (newSelectedChoices[index] = "")
+        : (newSelectedChoices[index] = answer);
+      return newSelectedChoices;
+    });
     console.log(selectedChoices);
   };
 
-  console.log("Quiz is renderd");
+  const onSubmit = () => {
+    questions.forEach((qst: QuestionType, index: number) => {
+      if (qst.correctAnswer === selectedChoices[index]) {
+        setScore((prev: number) => prev + 1);
+      }
+    });
+    setSelectedAnswer("");
+    console.log("selectedItems ", selectedChoices);
+    console.log("questions", questions);
+    console.log("score", score);
+  };
 
   return (
     <>
-      {questions.map((question: QuestionType) => (
-        <Question
-          question={question.question}
-          correctAnswer={question.correctAnswer}
-          incorrectAnswers={question.incorrectAnswers}
-          id={question.id}
-          key={question.id}
-          onSelect={onSelect}
-        />
-      ))}
-      {!selectedChoices.includes("") && (
-        <Button
-          id="Submit"
-          name="Submit"
-          backgroundColor="grey"
-          color="white"
-          component="quiz"
-          ccsStyle={{ width: "100%" }}
-        />
-      )}
+      <div className="quiz">
+        {questions.map((question: QuestionType, index: number) => (
+          <Question
+            key={question.question}
+            question={question}
+            selectedAnswers={selectedChoices}
+            onAnswerSelected={onAnswerSelected}
+            selectedQuestion={index}
+          />
+        ))}
+        {!selectedChoices.includes("") && (
+          <>
+            <Link to="/result" state={{ selectedChoices, questions, score }}>
+              <button onClick={onSubmit} className="submit">
+                Soumettre
+              </button>
+            </Link>
+          </>
+        )}
+      </div>
     </>
   );
 };

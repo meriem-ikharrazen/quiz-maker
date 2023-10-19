@@ -1,45 +1,45 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { shuffleArray } from "../../utils/shuffleArray";
-import { Button } from "../Button/Button";
 import "./Question.css";
+import { Question as QuestionType } from "../../interfaces/Question";
+import { Choice } from "../Choice/Choice";
 
 type QuestionProps = {
-  id: number;
-  question: string;
-  correctAnswer: string;
-  incorrectAnswers: string[];
-  onSelect: (index: number, choice: string) => void;
+  question: QuestionType;
+  selectedAnswers: string[];
+  onAnswerSelected?: (answer: string, index: number) => void;
+  selectedQuestion: number;
 };
 export const Question: React.FC<QuestionProps> = ({
-  id,
   question,
-  correctAnswer,
-  incorrectAnswers,
-  onSelect,
+  selectedAnswers,
+  onAnswerSelected,
+  selectedQuestion,
 }) => {
   const randomChoices: string[] = useMemo(() => {
-    return shuffleArray(correctAnswer, incorrectAnswers);
-  }, [correctAnswer, incorrectAnswers]);
+    return shuffleArray(question.correctAnswer, question.incorrectAnswers);
+  }, [question]);
+
+  const handleClick = (answer: string) => {
+    onAnswerSelected !== undefined &&
+      onAnswerSelected(answer, selectedQuestion);
+  };
 
   return (
-    <div className="Question" key={"qst-" + id}>
-      <div className="Qst">{question}</div>
-      <div className="Choices">
-        {randomChoices ? (
-          randomChoices.map((choice: string) => (
-            <Button
-              name={choice}
-              id={choice}
-              color="#019C00"
-              backgroundColor="white"
-              component="question"
-              onSelect={onSelect}
-              questionNumber={id}
-            />
-          ))
-        ) : (
-          <></>
-        )}
+    <div className="question">
+      <h2>{question.question}</h2>
+      <div>
+        {randomChoices.map((answer: string, index: number) => (
+          <Choice
+            action={() => handleClick(answer)}
+            answer={answer}
+            index={index}
+            selectedAnswers={selectedAnswers}
+            key={answer}
+            disabled={onAnswerSelected === undefined}
+            correctAnswer={question.correctAnswer}
+          />
+        ))}
       </div>
     </div>
   );

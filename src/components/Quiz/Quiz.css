@@ -1,1 +1,12 @@
-
+.submit {
+  width: 100%;
+  align-items: center;
+  background-color: darkslategrey;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  border-color: white;
+  margin-top: 5%;
+}
