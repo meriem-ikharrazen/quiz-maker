@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchQuestions } from "../../hooks/useFetchQuestions";
 import { Question as QuestionType } from "../../interfaces/Question";
@@ -12,6 +12,10 @@ type QuizProps = {
   isVisible: boolean;
 };
 
+interface Answer {
+  [key: number]: string[];
+}
+
 export const Quiz: React.FC<QuizProps> = ({
   category,
   difficulty,
@@ -22,7 +26,23 @@ export const Quiz: React.FC<QuizProps> = ({
     difficulty,
     isVisible
   );
-  console.log(questions);
+
+  const [choices, setChoices] = useState<Answer>({});
+
+  useEffect(() => {
+    const newChoices: Answer = {};
+    console.log(questions);
+    questions.forEach((qst: QuestionType, index: number) => {
+      newChoices[index] = shuffleArray([
+        qst.correctAnswer,
+        ...qst.incorrectAnswers,
+      ]);
+    });
+    setChoices(newChoices);
+  }, [questions]);
+
+  console.log(choices[0]);
+
   const [selectedChoices, setSelectedChoices] = useState<string[]>(
     new Array(5).fill("")
   );
@@ -49,21 +69,29 @@ export const Quiz: React.FC<QuizProps> = ({
       }
     });
     setSelectedAnswer("");
-    navigate("/result", { state: { selectedChoices, questions, score } });
+    navigate("/result", {
+      state: { selectedChoices, questions, score, choices },
+    });
   };
 
   return (
     <>
       <div className="quiz">
-        {questions.map((question: QuestionType, index: number) => (
-          <Question
-            key={question.question}
-            question={question}
-            selectedAnswers={selectedChoices}
-            onAnswerSelected={onAnswerSelected}
-            selectedQuestion={index}
-          />
-        ))}
+        {questions.map((question: QuestionType, index: number) => {
+          const randomChoices: string[] = choices[index];
+          console.log("Choices " + choices);
+          console.log("Question " + index + " randomChoices " + randomChoices);
+          return (
+            <Question
+              key={question.question}
+              question={question}
+              selectedAnswers={selectedChoices}
+              onAnswerSelected={onAnswerSelected}
+              selectedQuestion={index}
+              choices={randomChoices}
+            />
+          );
+        })}
         {!selectedChoices.includes("") && (
           <>
             <button onClick={onSubmit} className="submit">

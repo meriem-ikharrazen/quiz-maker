@@ -1,5 +1,3 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { shuffleArray } from "../../utils/shuffleArray";
 import "./Question.css";
 import { Question as QuestionType } from "../../interfaces/Question";
 import { Choice } from "../Choice/Choice";
@@ -9,20 +7,18 @@ type QuestionProps = {
   selectedAnswers: string[];
   onAnswerSelected?: (answer: string, index: number) => void;
   selectedQuestion: number;
+  choices: string[];
 };
 export const Question: React.FC<QuestionProps> = ({
   question,
   selectedAnswers,
   onAnswerSelected,
   selectedQuestion,
+  choices,
 }) => {
-  const [randomChoices, setRandomChoices] = useState<string[]>([]);
-
-  useMemo(() => {
-    return setRandomChoices(
-      shuffleArray([question.correctAnswer, ...question.incorrectAnswers])
-    );
-  }, [question]);
+  /*const randomChoices: string[] = useMemo(() => {
+    return shuffleArray([question.correctAnswer, ...question.incorrectAnswers]);
+  }, [question.correctAnswer, question.incorrectAnswers]);*/
 
   const handleClick = (answer: string) => {
     onAnswerSelected !== undefined &&
@@ -33,7 +29,7 @@ export const Question: React.FC<QuestionProps> = ({
     <div className="question">
       <h2>{question.question}</h2>
       <div>
-        {randomChoices.map((answer: string, index: number) => (
+        {choices?.map((answer: string, index: number) => (
           <Choice
             action={() => handleClick(answer)}
             answer={answer}

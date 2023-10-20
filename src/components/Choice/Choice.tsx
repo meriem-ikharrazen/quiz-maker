@@ -19,6 +19,7 @@ export const Choice: React.FC<ChoiceProps> = ({
 }) => {
   const [textColor, setTextColor] = useState<string>("green");
   const [backColor, setBackColor] = useState<string>("white");
+
   const handleClick = () => {
     if (selectedAnswers.includes(answer)) {
       setTextColor("green");
@@ -41,6 +42,7 @@ export const Choice: React.FC<ChoiceProps> = ({
       }
     }
   }, [disabled, answer, correctAnswer, selectedAnswers]);
+
   return (
     <button
       key={answer}
