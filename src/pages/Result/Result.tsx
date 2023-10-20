@@ -29,7 +29,7 @@ export const Result = () => {
   return (
     <div className="result">
       <div className="title">Results</div>
-      <div className="qsts">
+      <div className="questions">
         {state.questions.map((question: QuestionType, index: number) => {
           return (
             <Question
