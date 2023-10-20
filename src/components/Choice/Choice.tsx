@@ -3,7 +3,6 @@ import "./Choice.css";
 
 type ChoiceProps = {
   answer: string;
-  index: number;
   action: (value: string) => void;
   selectedAnswers: string[];
   disabled?: boolean;
@@ -12,7 +11,6 @@ type ChoiceProps = {
 };
 export const Choice: React.FC<ChoiceProps> = ({
   answer,
-  index,
   action,
   selectedAnswers,
   disabled = false,

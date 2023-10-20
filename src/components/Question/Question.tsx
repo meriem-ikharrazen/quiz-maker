@@ -32,7 +32,6 @@ export const Question: React.FC<QuestionProps> = ({
           <Choice
             action={() => handleClick(answer, index)}
             answer={answer}
-            index={index}
             selectedAnswers={selectedAnswers}
             key={answer}
             disabled={onAnswerSelected === undefined}
