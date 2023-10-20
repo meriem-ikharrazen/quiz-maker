@@ -49,6 +49,7 @@ export const Choice: React.FC<ChoiceProps> = ({
         backgroundColor: backColor,
         borderColor: textColor,
         color: textColor,
+        cursor: disabled === true ? "auto" : "pointer",
       }}
       onClick={handleClick}
       disabled={disabled}

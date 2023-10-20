@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { shuffleArray } from "../../utils/shuffleArray";
 import "./Question.css";
 import { Question as QuestionType } from "../../interfaces/Question";
@@ -16,9 +16,13 @@ export const Question: React.FC<QuestionProps> = ({
   onAnswerSelected,
   selectedQuestion,
 }) => {
-  const randomChoices: string[] = useMemo(() => {
-    return shuffleArray(question.correctAnswer, question.incorrectAnswers);
-  }, [question]);
+  const [randomChoices, setRandomChoices] = useState<string[]>([]);
+
+  useMemo(() => {
+    return setRandomChoices(
+      shuffleArray(question.correctAnswer, question.incorrectAnswers)
+    );
+  }, [question.correctAnswer, question.incorrectAnswers]);
 
   const handleClick = (answer: string) => {
     onAnswerSelected !== undefined &&

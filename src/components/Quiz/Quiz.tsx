@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchQuestions } from "../../hooks/useFetchQuestions";
 import { Question as QuestionType } from "../../interfaces/Question";
 import { Question } from "../Question/Question";
 import "./Quiz.css";
+import { shuffleArray } from "../../utils/shuffleArray";
 
 type QuizProps = {
   category: string;
