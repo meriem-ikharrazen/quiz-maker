@@ -6,21 +6,21 @@ import { Question } from "../../components/Question/Question";
 export const Result = () => {
   const { state } = useLocation();
   let color = "";
-  let ind = 0;
 
   switch (state.score) {
     case 0:
-      color = "red";
-      break;
     case 1:
       color = "red";
       break;
-    case 2 || 3:
+    case 2:
+    case 3:
       color = "yellow";
       break;
-    case 4 || 5:
+    case 4:
+    case 5:
       color = "green";
       break;
+
     default:
       color = "white";
       break;
@@ -31,15 +31,13 @@ export const Result = () => {
       <div className="title">Results</div>
       <div className="qsts">
         {state.questions.map((question: QuestionType, index: number) => {
-          const randomChoices: string[] = state.choices[index];
-          ind = ind + 4;
           return (
             <Question
               key={question.question}
               question={question}
               selectedAnswers={state.selectedChoices}
               selectedQuestion={index}
-              choices={randomChoices}
+              choices={state.choices[index]}
             />
           );
         })}

@@ -39,7 +39,7 @@ export const Home = () => {
           <button
             onClick={() => setIsVisible(true)}
             className="createQuiz"
-            id=""
+            id="createBtn"
           >
             Create
           </button>
