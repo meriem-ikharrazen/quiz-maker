@@ -17,6 +17,7 @@ export const Question: React.FC<QuestionProps> = ({
   choices,
 }) => {
   const [currentButtonIndex, setCurrentButtonIndex] = useState<number>();
+
   const handleClick = (answer: string, index: number) => {
     onAnswerSelected !== undefined &&
       onAnswerSelected(answer, selectedQuestion);
@@ -25,7 +26,7 @@ export const Question: React.FC<QuestionProps> = ({
 
   return (
     <div>
-      <h2>{question.question}</h2>
+      <h2 dangerouslySetInnerHTML={{ __html: question.question }}></h2>
       <div>
         {choices?.map((answer: string, index: number) => (
           <Choice

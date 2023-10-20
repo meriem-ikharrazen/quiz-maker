@@ -5,6 +5,7 @@ import { Question as QuestionType } from "../../interfaces/Question";
 import { Question } from "../Question/Question";
 import "./Quiz.css";
 import { shuffleArray } from "../../utils/shuffleArray";
+import { Choice } from "../../interfaces/Choice";
 
 type QuizProps = {
   category: string;
@@ -12,26 +13,25 @@ type QuizProps = {
   isVisible: boolean;
 };
 
-interface Answer {
-  [key: number]: string[];
-}
-
 export const Quiz: React.FC<QuizProps> = ({
   category,
   difficulty,
   isVisible,
 }) => {
+  const [choices, setChoices] = useState<Choice>({});
+  const [selectedChoices, setSelectedChoices] = useState<string[]>(
+    new Array(5).fill("")
+  );
+  let score = 0;
+  const navigate = useNavigate();
   const questions: QuestionType[] = useFetchQuestions(
     category,
     difficulty,
     isVisible
   );
 
-  const [choices, setChoices] = useState<Answer>({});
-
   useEffect(() => {
-    const newChoices: Answer = {};
-    console.log(questions);
+    const newChoices: Choice = {};
     questions.forEach((qst: QuestionType, index: number) => {
       newChoices[index] = shuffleArray([
         qst.correctAnswer,
@@ -41,18 +41,7 @@ export const Quiz: React.FC<QuizProps> = ({
     setChoices(newChoices);
   }, [questions]);
 
-  console.log(choices[0]);
-
-  const [selectedChoices, setSelectedChoices] = useState<string[]>(
-    new Array(5).fill("")
-  );
-  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
-  let score = 0;
-  const navigate = useNavigate();
-
   const onAnswerSelected = (answer: string, index: number) => {
-    setSelectedAnswer(answer);
-    console.log(selectedAnswer);
     setSelectedChoices((prevSelectedChoices: string[]) => {
       const newSelectedChoices = [...selectedChoices];
       newSelectedChoices[index] === answer
@@ -68,7 +57,6 @@ export const Quiz: React.FC<QuizProps> = ({
         score++;
       }
     });
-    setSelectedAnswer("");
     navigate("/result", {
       state: { selectedChoices, questions, score, choices },
     });
