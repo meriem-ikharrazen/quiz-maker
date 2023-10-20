@@ -17,18 +17,8 @@ export const Choice: React.FC<ChoiceProps> = ({
   correctAnswer,
   selected,
 }) => {
-  const [textColor, setTextColor] = useState<string>(
-    selected ? "white" : "green"
-  );
-  const [backColor, setBackColor] = useState<string>(
-    selected ? "green" : "white"
-  );
-
-  const handleClick = () => {
-    setTextColor(selected ? "green" : "white");
-    setBackColor(selected ? "white" : "green");
-    action(answer);
-  };
+  const [textColor, setTextColor] = useState<string>("green");
+  const [backColor, setBackColor] = useState<string>("white");
 
   useEffect(() => {
     if (disabled === true) {
@@ -40,8 +30,10 @@ export const Choice: React.FC<ChoiceProps> = ({
         setBackColor(answer === correctAnswer ? "green" : "white");
       }
     } else {
+      setBackColor(selected ? "green" : "white");
+      setTextColor(selected ? "white" : "green");
     }
-  }, [disabled, answer, correctAnswer, selectedAnswers]);
+  }, [disabled, answer, correctAnswer, selectedAnswers, selected]);
 
   return (
     <button
@@ -53,7 +45,7 @@ export const Choice: React.FC<ChoiceProps> = ({
         color: textColor,
         cursor: disabled === true ? "auto" : "pointer",
       }}
-      onClick={handleClick}
+      onClick={() => action(answer)}
       disabled={disabled}
     >
       {answer}
