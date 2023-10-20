@@ -36,11 +36,7 @@ export const Home = () => {
             list={difficulties}
             setSelectedItem={setSelectedDifficulty}
           />
-          <button
-            onClick={() => setIsVisible(true)}
-            className="createQuiz"
-            id="createBtn"
-          >
+          <button onClick={() => setIsVisible(true)} id="createBtn">
             Create
           </button>
         </div>

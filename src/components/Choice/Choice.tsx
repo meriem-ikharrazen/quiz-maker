@@ -19,6 +19,7 @@ export const Choice: React.FC<ChoiceProps> = ({
 }) => {
   const [textColor, setTextColor] = useState<string>("green");
   const [backColor, setBackColor] = useState<string>("white");
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (disabled === true) {
@@ -30,10 +31,15 @@ export const Choice: React.FC<ChoiceProps> = ({
         setBackColor(answer === correctAnswer ? "green" : "white");
       }
     } else {
-      setBackColor(selected ? "green" : "white");
-      setTextColor(selected ? "white" : "green");
+      if (isHovered) {
+        setBackColor("green");
+        setTextColor("white");
+      } else {
+        setBackColor(selected ? "green" : "white");
+        setTextColor(selected ? "white" : "green");
+      }
     }
-  }, [disabled, answer, correctAnswer, selectedAnswers, selected]);
+  }, [disabled, answer, correctAnswer, selectedAnswers, selected, isHovered]);
 
   return (
     <button
@@ -45,6 +51,8 @@ export const Choice: React.FC<ChoiceProps> = ({
         color: textColor,
         cursor: disabled === true ? "auto" : "pointer",
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={() => action(answer)}
       disabled={disabled}
     >

@@ -91,7 +91,7 @@ export const Quiz: React.FC<QuizProps> = ({
       {!selectedChoices.includes("") && (
         <>
           <button onClick={onSubmit} className="submit">
-            Soumettre
+            Submit
           </button>
         </>
       )}

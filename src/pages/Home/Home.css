@@ -18,7 +18,7 @@
   padding-left: 7%;
   padding-right: 7%;
 }
-.createQuiz {
+#createBtn {
   background-color: grey;
   padding: 8px;
   cursor: pointer;
