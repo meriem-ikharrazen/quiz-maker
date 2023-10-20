@@ -76,30 +76,25 @@ export const Quiz: React.FC<QuizProps> = ({
 
   return (
     <>
-      <div className="quiz">
-        {questions.map((question: QuestionType, index: number) => {
-          const randomChoices: string[] = choices[index];
-          console.log("Choices " + choices);
-          console.log("Question " + index + " randomChoices " + randomChoices);
-          return (
-            <Question
-              key={question.question}
-              question={question}
-              selectedAnswers={selectedChoices}
-              onAnswerSelected={onAnswerSelected}
-              selectedQuestion={index}
-              choices={randomChoices}
-            />
-          );
-        })}
-        {!selectedChoices.includes("") && (
-          <>
-            <button onClick={onSubmit} className="submit">
-              Soumettre
-            </button>
-          </>
-        )}
-      </div>
+      {questions.map((question: QuestionType, index: number) => {
+        return (
+          <Question
+            key={question.question}
+            question={question}
+            selectedAnswers={selectedChoices}
+            onAnswerSelected={onAnswerSelected}
+            selectedQuestion={index}
+            choices={choices[index]}
+          />
+        );
+      })}
+      {!selectedChoices.includes("") && (
+        <>
+          <button onClick={onSubmit} className="submit">
+            Soumettre
+          </button>
+        </>
+      )}
     </>
   );
 };

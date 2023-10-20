@@ -1,4 +1,3 @@
-import "./Question.css";
 import { Question as QuestionType } from "../../interfaces/Question";
 import { Choice } from "../Choice/Choice";
 import { useState } from "react";
@@ -25,7 +24,7 @@ export const Question: React.FC<QuestionProps> = ({
   };
 
   return (
-    <div className="question">
+    <div>
       <h2>{question.question}</h2>
       <div>
         {choices?.map((answer: string, index: number) => (
