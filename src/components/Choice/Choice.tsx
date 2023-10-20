@@ -8,6 +8,7 @@ type ChoiceProps = {
   selectedAnswers: string[];
   disabled?: boolean;
   correctAnswer: string;
+  selected: boolean;
 };
 export const Choice: React.FC<ChoiceProps> = ({
   answer,
@@ -16,18 +17,18 @@ export const Choice: React.FC<ChoiceProps> = ({
   selectedAnswers,
   disabled = false,
   correctAnswer,
+  selected,
 }) => {
-  const [textColor, setTextColor] = useState<string>("green");
-  const [backColor, setBackColor] = useState<string>("white");
+  const [textColor, setTextColor] = useState<string>(
+    selected ? "white" : "green"
+  );
+  const [backColor, setBackColor] = useState<string>(
+    selected ? "green" : "white"
+  );
 
   const handleClick = () => {
-    if (selectedAnswers.includes(answer)) {
-      setTextColor("green");
-      setBackColor("white");
-    } else {
-      setTextColor("white");
-      setBackColor("green");
-    }
+    setTextColor(selected ? "green" : "white");
+    setBackColor(selected ? "white" : "green");
     action(answer);
   };
 
@@ -40,6 +41,7 @@ export const Choice: React.FC<ChoiceProps> = ({
         setTextColor(answer === correctAnswer ? "white" : "green");
         setBackColor(answer === correctAnswer ? "green" : "white");
       }
+    } else {
     }
   }, [disabled, answer, correctAnswer, selectedAnswers]);
 

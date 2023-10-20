@@ -1,6 +1,7 @@
 import "./Question.css";
 import { Question as QuestionType } from "../../interfaces/Question";
 import { Choice } from "../Choice/Choice";
+import { useState } from "react";
 
 type QuestionProps = {
   question: QuestionType;
@@ -16,13 +17,11 @@ export const Question: React.FC<QuestionProps> = ({
   selectedQuestion,
   choices,
 }) => {
-  /*const randomChoices: string[] = useMemo(() => {
-    return shuffleArray([question.correctAnswer, ...question.incorrectAnswers]);
-  }, [question.correctAnswer, question.incorrectAnswers]);*/
-
-  const handleClick = (answer: string) => {
+  const [currentButtonIndex, setCurrentButtonIndex] = useState<number>();
+  const handleClick = (answer: string, index: number) => {
     onAnswerSelected !== undefined &&
       onAnswerSelected(answer, selectedQuestion);
+    setCurrentButtonIndex(index);
   };
 
   return (
@@ -31,13 +30,14 @@ export const Question: React.FC<QuestionProps> = ({
       <div>
         {choices?.map((answer: string, index: number) => (
           <Choice
-            action={() => handleClick(answer)}
+            action={() => handleClick(answer, index)}
             answer={answer}
             index={index}
             selectedAnswers={selectedAnswers}
             key={answer}
             disabled={onAnswerSelected === undefined}
             correctAnswer={question.correctAnswer}
+            selected={currentButtonIndex === index}
           />
         ))}
       </div>
