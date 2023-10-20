@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchQuestions } from "../../hooks/useFetchQuestions";
 import { Question as QuestionType } from "../../interfaces/Question";
@@ -40,7 +40,6 @@ export const Quiz: React.FC<QuizProps> = ({
         : (newSelectedChoices[index] = answer);
       return newSelectedChoices;
     });
-    console.log(selectedChoices);
   };
 
   const onSubmit = () => {
@@ -50,9 +49,6 @@ export const Quiz: React.FC<QuizProps> = ({
       }
     });
     setSelectedAnswer("");
-    console.log("selectedItems ", selectedChoices);
-    console.log("questions", questions);
-    console.log("score", score);
     navigate("/result", { state: { selectedChoices, questions, score } });
   };
 

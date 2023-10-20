@@ -3,7 +3,6 @@ import { Layout } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import quizIcon from "./assets/images/quiz.png";
 import { Home } from "./pages/Home/Home";
 import { Result } from "./pages/Result/Result";
 
@@ -11,8 +10,7 @@ function App() {
   return (
     <Layout>
       <Header className="Header">
-        <img src={quizIcon} alt="quiz-maker" className="icon" />
-        Quiz Maker
+        React Certification - Level 2 - Experienced
       </Header>
       <Content
         className="site-layout"

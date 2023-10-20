@@ -20,9 +20,9 @@ export const Question: React.FC<QuestionProps> = ({
 
   useMemo(() => {
     return setRandomChoices(
-      shuffleArray(question.correctAnswer, question.incorrectAnswers)
+      shuffleArray([question.correctAnswer, ...question.incorrectAnswers])
     );
-  }, [question.correctAnswer, question.incorrectAnswers]);
+  }, [question]);
 
   const handleClick = (answer: string) => {
     onAnswerSelected !== undefined &&
