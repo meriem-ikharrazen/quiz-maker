@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Choice.css";
+import { decodeHtmlEntity } from "../../utils/decodeHtmlEntity";
 
 type ChoiceProps = {
   answer: string;
@@ -56,7 +57,7 @@ export const Choice: React.FC<ChoiceProps> = ({
       onClick={() => action(answer)}
       disabled={disabled}
     >
-      {answer}
+      {decodeHtmlEntity(answer)}
     </button>
   );
 };

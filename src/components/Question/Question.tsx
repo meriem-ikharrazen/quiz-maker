@@ -1,4 +1,5 @@
 import { Question as QuestionType } from "../../interfaces/Question";
+import { decodeHtmlEntity } from "../../utils/decodeHtmlEntity";
 import { Choice } from "../Choice/Choice";
 import { useState } from "react";
 
@@ -26,7 +27,7 @@ export const Question: React.FC<QuestionProps> = ({
 
   return (
     <div>
-      <h2 dangerouslySetInnerHTML={{ __html: question.question }}></h2>
+      <h2>{decodeHtmlEntity(question.question)}</h2>
       <div>
         {choices?.map((answer: string, index: number) => (
           <Choice
