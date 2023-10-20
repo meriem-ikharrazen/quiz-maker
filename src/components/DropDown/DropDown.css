@@ -5,4 +5,8 @@
   text-align: center;
   border-color: grey;
   width: max-content;
+
+  @media (max-width: 810px) {
+    margin-bottom: 10px;
+  }
 }

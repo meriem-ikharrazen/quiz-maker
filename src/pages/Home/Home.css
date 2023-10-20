@@ -1,8 +1,13 @@
 .DropDownContainer {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   margin-bottom: 5%;
   align-items: center;
+  justify-content: center;
+
+  @media (max-width: 810px) {
+    flex-direction: column;
+  }
 }
 .HomeContainer {
   display: flex;
